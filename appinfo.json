@@ -1,0 +1,37 @@
+{
+    "versionLabel": "1.0",
+    "uuid": "26ab2fdc-cfcf-40f3-8511-a6be0c4c9fa1",
+    "appKeys": {},
+    "longName": "FuzzyIta",
+    "versionCode": 1,
+    "capabilities": [
+        ""
+    ],
+    "shortName": "FuzzyIta",
+    "companyName": "chrispazz",
+    "watchapp": {
+        "watchface": true
+    },
+    "resources": {
+        "media": [
+            {
+                "characterRegex": "[A-z]",
+                "type": "font",
+                "name": "FONT_HELV_L_34",
+                "file": "fonts/helv_l.ttf"
+            },
+            {
+                "characterRegex": "[A-z]",
+                "type": "font",
+                "name": "FONT_HELV_BOLD_38",
+                "file": "fonts/helv_bold.ttf"
+            },
+            {
+                "menuIcon": true,
+                "type": "png",
+                "name": "MENU_ICON_FUZZY_WATCH",
+                "file": "images/menu_icon_fuzzyita.png"
+            }
+        ]
+    }
+}
