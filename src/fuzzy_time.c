@@ -33,18 +33,18 @@ static void do_init(void) {
 
   window_set_background_color(s_data.window, GColorBlack);
   fontbold = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_HELV_BOLD_38));
-  fontnormal = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_HELV_L_34));	
+  fontnormal = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_HELV_L_34));
 	
   Layer *root_layer = window_get_root_layer(s_data.window);
   GRect frame = layer_get_frame(root_layer);
 
-  s_data.label = text_layer_create(GRect(0, 0, frame.size.w, 83));
+  s_data.label = text_layer_create(GRect(2, -5, frame.size.w, 84));
   text_layer_set_background_color(s_data.label, GColorBlack);
   text_layer_set_text_color(s_data.label, GColorWhite);
   text_layer_set_font(s_data.label, fontbold);
   layer_add_child(root_layer, text_layer_get_layer(s_data.label));
 
-  s_data.label2 = text_layer_create(GRect(0, 84, frame.size.w, frame.size.h));
+  s_data.label2 = text_layer_create(GRect(2, 80, frame.size.w, frame.size.h));
   text_layer_set_background_color(s_data.label2, GColorBlack);
   text_layer_set_text_color(s_data.label2, GColorWhite);
   text_layer_set_font(s_data.label2, fontnormal);

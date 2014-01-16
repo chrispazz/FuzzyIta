@@ -86,6 +86,7 @@ static size_t append_string(char* buffer, const size_t length, const char* str) 
 void fuzzy_time_to_words(int hours, int minutes, char* words, char* words2, size_t length) {
   int fuzzy_hours = hours;
   int fuzzy_minutes = ((minutes + 2) / 5) * 5;
+	  bool invert = 0;
 
   // Handle hour & minute roll-over.
   if (fuzzy_minutes > 55) {
@@ -103,46 +104,67 @@ void fuzzy_time_to_words(int hours, int minutes, char* words, char* words2, size
 
   if (fuzzy_minutes > 37) {
     fuzzy_hours = (fuzzy_hours + 1) % 24;	
+	 invert = 1;
   }
 	
-  if (fuzzy_hours == 0) {
-    remaining -= append_string(words, remaining, STR_MIDNIGHT);
-  } else if (fuzzy_hours == 12) {
-    remaining -= append_string(words, remaining, STR_NOON);
-  } else {
-    remaining -= append_string(words, remaining, "\n");
-    remaining -= append_number(words, fuzzy_hours % 12);  
-  }
 	
-  if (fuzzy_minutes != 0 && (fuzzy_minutes >= 10 || fuzzy_minutes == 5 || fuzzy_hours == 0 || fuzzy_hours == 12)) {
-    if (fuzzy_minutes == 15) {
-      remaining2 -= append_string(words2, remaining2, STR_AFTER);
-      remaining2 -= append_string(words2, remaining2, " ");
-      remaining2 -= append_string(words2, remaining2, STR_QUARTER);
-    } else if (fuzzy_minutes == 45) {
-      remaining2 -= append_string(words2, remaining2, STR_TO);
-      remaining2 -= append_string(words2, remaining2, " ");
-      remaining2 -= append_string(words2, remaining2, STR_QUARTER);
-      
-    } else if (fuzzy_minutes == 30) {
-	  remaining2 -= append_string(words2, remaining2, STR_PAST);
-	  remaining2 -= append_string(words2, remaining2, " ");
-      remaining2 -= append_string(words2, remaining2, STR_HALF);
-      
-    } else if (fuzzy_minutes < 37) {
-      remaining2 -= append_string(words2, remaining2, STR_AFTER);
-	  remaining2 -= append_string(words2, remaining2, " ");
-      remaining2 -= append_number(words2, fuzzy_minutes);
-    } else {
-      remaining2 -= append_string(words2, remaining2, STR_TO);
-      remaining2 -= append_string(words2, remaining2, " ");
-      remaining2 -= append_number(words2, 60 - fuzzy_minutes);
-      remaining2 -= append_string(words2, remaining2, " ");
-    }
-  }
+  if (invert == 0)
+  {	
+			if (fuzzy_hours == 0) {
+				remaining -= append_string(words, remaining, STR_MIDNIGHT);
+			  } else if (fuzzy_hours == 12) {
+				remaining -= append_string(words, remaining, STR_NOON);
+			  } else {
+				remaining -= append_string(words, remaining, "le\n");
+				remaining -= append_number(words, fuzzy_hours % 12);  
+			  }
+				
+			  if (fuzzy_minutes != 0 && (fuzzy_minutes >= 10 || fuzzy_minutes == 5 || fuzzy_hours == 0 || fuzzy_hours == 12)) {
+					if (fuzzy_minutes == 15) {
+				  remaining2 -= append_string(words2, remaining2, STR_AFTER); //e
+				  remaining2 -= append_string(words2, remaining2, " ");
+				  remaining2 -= append_string(words2, remaining2, STR_QUARTER); //un quarto
+				} else if (fuzzy_minutes == 45) {
+				  remaining2 -= append_string(words2, remaining2, STR_TO); //meno
+				  remaining2 -= append_string(words2, remaining2, " ");
+				  remaining2 -= append_string(words2, remaining2, STR_QUARTER); //un quarto
+				  
+				} else if (fuzzy_minutes == 30) {
+				  remaining2 -= append_string(words2, remaining2, STR_PAST); //e
+				  remaining2 -= append_string(words2, remaining2, " ");
+				  remaining2 -= append_string(words2, remaining2, STR_HALF); //mezza
+				  
+				} else if (fuzzy_minutes < 37) {
+				  remaining2 -= append_string(words2, remaining2, STR_AFTER); //e
+				  remaining2 -= append_string(words2, remaining2, " ");
+				  remaining2 -= append_number(words2, fuzzy_minutes);
+				} else {
+				  remaining2 -= append_string(words2, remaining2, STR_TO); //meno
+				  remaining2 -= append_string(words2, remaining2, " ");
+				  remaining2 -= append_number(words2, 60 - fuzzy_minutes);
+				  remaining2 -= append_string(words2, remaining2, " ");
+				}
+			  }
+			
+			  //if (fuzzy_minutes == 0 && !(fuzzy_hours == 0 || fuzzy_hours == 12)) {
+			//	remaining2 -= append_string(words2, remaining2, " ");
+			//	remaining2 -= append_string(words2, remaining2, STR_OH_CLOCK);
+			 // }
+	}  
+	else
+	{
+	// Dopo i minuti 37 inverto la posizione, per dire "venti alle otto e simili"			
+	
+			if (fuzzy_minutes == 45) {
+			  remaining -= append_string(words, remaining, "un quarto");	
+			}	
+			else {
+			  remaining -= append_string(words, remaining, "\n");
+			  remaining -= append_number(words, 60 - fuzzy_minutes);
+			  //remaining -= append_string(words, remaining, " a");
+			}
 
-  if (fuzzy_minutes == 0 && !(fuzzy_hours == 0 || fuzzy_hours == 12)) {
-    remaining2 -= append_string(words2, remaining2, " ");
-    remaining2 -= append_string(words2, remaining2, STR_OH_CLOCK);
+			remaining2 -= append_string(words2, remaining2, "alle\n");
+			remaining2 -= append_number(words2, fuzzy_hours % 12);  	
+	}
   }
-}

@@ -15,10 +15,10 @@
     "resources": {
         "media": [
             {
-                "characterRegex": "[A-z]",
-                "type": "font",
-                "name": "FONT_HELV_L_34",
-                "file": "fonts/helv_l.ttf"
+                "menuIcon": true,
+                "type": "png",
+                "name": "MENU_ICON_FUZZY_WATCH",
+                "file": "images/menu_icon_fuzzyita.png"
             },
             {
                 "characterRegex": "[A-z]",
@@ -27,10 +27,10 @@
                 "file": "fonts/helv_bold.ttf"
             },
             {
-                "menuIcon": true,
-                "type": "png",
-                "name": "MENU_ICON_FUZZY_WATCH",
-                "file": "images/menu_icon_fuzzyita.png"
+                "characterRegex": "[A-z]",
+                "type": "font",
+                "name": "FONT_HELV_L_34",
+                "file": "fonts/helv_l.ttf"
             }
         ]
     }
