@@ -44,7 +44,7 @@ static void do_init(void) {
   text_layer_set_font(s_data.label, fontbold);
   layer_add_child(root_layer, text_layer_get_layer(s_data.label));
 
-  s_data.label2 = text_layer_create(GRect(2, 76, frame.size.w, frame.size.h));
+  s_data.label2 = text_layer_create(GRect(2, 80, frame.size.w, frame.size.h));
   text_layer_set_background_color(s_data.label2, GColorBlack);
   text_layer_set_text_color(s_data.label2, GColorWhite);
   text_layer_set_font(s_data.label2, fontnormal);
