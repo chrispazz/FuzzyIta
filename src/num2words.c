@@ -164,7 +164,16 @@ void fuzzy_time_to_words(int hours, int minutes, char* words, char* words2, size
 			  //remaining -= append_string(words, remaining, " a");
 			}
 
+		  if (fuzzy_hours == 0) {
+			remaining2 -= append_string(words2, remaining2, "a ");			  
+			remaining2 -= append_string(words2, remaining2, STR_MIDNIGHT); //mezzanotte
+		  } else if (fuzzy_hours == 12) {
+			remaining2 -= append_string(words2, remaining2, "a ");				  
+			remaining2 -= append_string(words2, remaining2, STR_NOON); //mezzogiorno
+		  } else {
 			remaining2 -= append_string(words2, remaining2, "alle\n");
-			remaining2 -= append_number(words2, fuzzy_hours % 12);  	
+			remaining2 -= append_number(words2, fuzzy_hours % 12);  
+		  }
+		
 	}
   }
